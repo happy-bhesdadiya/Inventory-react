@@ -1,19 +1,23 @@
 import React from "react";
-import logo from "./../../images/logo.png";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Sidebar = () => {
+const Sidebar = ({ active }) => {
 	return (
-		<div className="iq-sidebar sidebar-default">
+		<div
+			className="iq-sidebar sidebar-default"
+			style={{ backgroundColor: "#e0e0e6" }}
+		>
 			<div className="iq-sidebar-logo d-flex align-items-center justify-content-between">
-				<a href="../backend/index.html" className="header-logo">
+				<Link to="/dashboard">
 					<img
-						src={logo}
+						// src={logo}
+						src="./images/logo.png"
 						className="img-fluid rounded-normal light-logo"
 						alt="Bacancy Logo"
 					/>
 					<h5 className="logo-title light-logo ml-3">BACANCY</h5>
-				</a>
+				</Link>
+
 				<div className="iq-menu-bt-sidebar ml-0">
 					<i className="las la-bars wrapper-menu"></i>
 				</div>
@@ -21,11 +25,8 @@ const Sidebar = () => {
 			<div className="data-scrollbar" data-scroll="1">
 				<nav className="iq-sidebar-menu">
 					<ul id="iq-sidebar-toggle" className="iq-menu">
-						<li className="active">
-							<a
-								href="../backend/index.html"
-								className="svg-icon"
-							>
+						<li className={active === "home" ? "active" : ""}>
+							<Link to="/dashboard">
 								<svg
 									className="svg-icon"
 									id="p-dash1"
@@ -35,9 +36,9 @@ const Sidebar = () => {
 									viewBox="0 0 24 24"
 									fill="none"
 									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeWidth="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								>
 									<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
 									<polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
@@ -49,146 +50,14 @@ const Sidebar = () => {
 									></line>
 								</svg>
 								<span className="ml-4">Dashboard</span>
-							</a>
+							</Link>
 						</li>
-						<li className=" ">
-							<a
-								href="#product"
-								className="collapsed"
-								data-toggle="collapse"
-								aria-expanded="false"
-							>
-								<svg
-									className="svg-icon"
-									id="p-dash8"
-									width="20"
-									height="20"
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-									<circle
-										cx="9"
-										cy="7"
-										r="4"
-									></circle>
-									<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-									<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-								</svg>
-								<span className="ml-4">
-									{" "}
-									Manage People{" "}
-								</span>
-								<svg
-									className="svg-icon iq-arrow-right arrow-active"
-									width="20"
-									height="20"
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<polyline points="10 15 15 20 20 15"></polyline>
-									<path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
-								</svg>
-							</a>
-							<ul
-								id="product"
-								className="iq-submenu collapse"
-								data-parent="#iq-sidebar-toggle"
-							>
-								<li className="">
-									<a href="../backend/page-list-product.html">
-										<i className="las la-minus"></i>
-										<span> Add Admin </span>
-									</a>
-								</li>
-								<li className="">
-									<a href="../backend/page-add-product.html">
-										<i className="las la-minus"></i>
-										<span> View Admins </span>
-									</a>
-								</li>
-								<li className="">
-									<a href="../backend/page-add-product.html">
-										<i className="las la-minus"></i>
-										<span> View Users </span>
-									</a>
-								</li>
-							</ul>
-						</li>
-						<li className=" ">
-							<a
-								href="#category"
-								className="collapsed"
-								data-toggle="collapse"
-								aria-expanded="false"
-							>
-								<svg
-									className="svg-icon"
-									id="p-dash4"
-									width="20"
-									height="20"
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
-									<path d="M22 12A10 10 0 0 0 12 2v10z"></path>
-								</svg>
-								<span className="ml-4"> Stock </span>
-								<svg
-									className="svg-icon iq-arrow-right arrow-active"
-									width="20"
-									height="20"
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<polyline points="10 15 15 20 20 15"></polyline>
-									<path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
-								</svg>
-							</a>
-							<ul
-								id="category"
-								className="iq-submenu collapse"
-								data-parent="#iq-sidebar-toggle"
-							>
-								<li className="">
-									<a href="../backend/page-list-category.html">
-										<i className="las la-minus"></i>
-										<span> Add Stock </span>
-									</a>
-								</li>
-								<li className="">
-									<a href="../backend/page-add-category.html">
-										<i className="las la-minus"></i>
-										<span> View Stocks </span>
-									</a>
-								</li>
-							</ul>
-						</li>
-						<li className="">
-							<a
-								href="../backend/page-report.html"
-								className=""
-							>
+						<li
+							className={
+								active === "request" ? "active" : ""
+							}
+						>
+							<Link to="/viewRequests">
 								<svg
 									className="svg-icon"
 									id="p-dash7"
@@ -198,9 +67,9 @@ const Sidebar = () => {
 									viewBox="0 0 24 24"
 									fill="none"
 									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeWidth="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								>
 									<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
 									<polyline points="14 2 14 8 20 8"></polyline>
@@ -219,9 +88,9 @@ const Sidebar = () => {
 									<polyline points="10 9 9 9 8 9"></polyline>
 								</svg>
 								<span className="ml-4">
-									View Requests{" "}
+									View Requests
 								</span>
-							</a>
+							</Link>
 							<ul
 								id="reports"
 								className="iq-submenu collapse"

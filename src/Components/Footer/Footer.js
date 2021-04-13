@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
 	const year = new Date().getFullYear();
@@ -12,32 +13,48 @@ const Footer = () => {
 							<div className="col-lg-6">
 								<ul className="list-inline mb-0">
 									<li className="list-inline-item">
-										<a href="../backend/privacy-policy.html">
+										<Link
+											to="/privacyPolicy"
+											style={{
+												color: "#F68122",
+												fontWeight: "bold",
+											}}
+										>
 											Privacy Policy
-										</a>
+										</Link>
 									</li>
+									{"  "}
+									&nbsp;
 									<li className="list-inline-item">
-										<a href="../backend/terms-of-service.html">
+										<Link
+											to="/termsOfService"
+											style={{
+												color: "#F68122",
+												fontWeight: "bold",
+											}}
+										>
 											Terms of Use
-										</a>
+										</Link>
 									</li>
 								</ul>
 							</div>
 							<div className="col-lg-6 text-right">
 								<span
 									className="mr-1"
-									style={{ color: "#F68122" }}
+									style={{
+										color: "black",
+										fontWeight: "bold",
+									}}
 								>
-									{/* <script
-										data-cfasync="false"
-										src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
-									></script> */}
-									{year} ©
+									{year} &#169;
 								</span>
 								<a
 									href="https://www.bacancytechnology.com/"
 									target="_blank"
-									style={{ color: "#F68122" }}
+									style={{
+										color: "#F68122",
+										fontWeight: "bold",
+									}}
 								>
 									BACANCY
 								</a>

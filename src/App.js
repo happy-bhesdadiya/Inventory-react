@@ -1,23 +1,27 @@
 import React, { useState, useEffect, useContext } from "react";
-import "./css/styles.css";
 import {
 	BrowserRouter as Router,
 	Redirect,
 	Switch,
 	Route,
 } from "react-router-dom";
-
+import "./App.css";
 import { UserContext } from "./Context/UserContext";
-
 import SignInPage from "./Components/SignInPage/SignInPage";
 import SignUpPage from "./Components/SignUpPage/SignUpPage";
 import ForgotPassword from "./Components/ForgotPassword/ForgotPassword";
 import HomePage from "./Components/HomePage/HomePage";
 import { kBaseUrl } from "./constants";
+import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
+import TermsOfService from "./Components/TermsOfService/TermsOfService";
+import Header from "./Components/Header/Header";
+import Spinner from "./spinner";
+import RequestsPage from "./Components/RequestsPage/RequestsPage";
 
 function App() {
 	const [loggedIn, setLoggedIn] = useState(false);
-	// const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
+	const [products, setProducts] = useState([]);
 	const { userProfile, setUserProfile } = useContext(UserContext);
 
 	useEffect(() => {
@@ -31,23 +35,26 @@ function App() {
 						credentials: "include",
 						method: "GET",
 					})
-						.then(async (res) => {
-							const resJSON = await res.json();
+						.then((res) => {
+							return res.json();
+						})
+						.then((resJSON) => {
 							const { data } = resJSON;
-							setUserProfile(data.data);
+							setUserProfile(data);
 						})
 						.then(() => {
 							setLogin();
-							// setLoading(false);
+							setLoading(false);
 						});
 				} else {
-					// setLoading(false);
+					console.log("looks like unauthentication");
+					setLoading(false);
 					setLogout();
 				}
 			})
 			.catch((e) => {
-				console.log(e);
-				// setLoading(false);
+				console.log("Something went wrong", e);
+				setLoading(false);
 			});
 	}, []);
 
@@ -58,6 +65,14 @@ function App() {
 	const setLogout = () => {
 		setLoggedIn(false);
 		console.log("User Logged Out !");
+	};
+
+	const isAuthenticated = () => {
+		return loggedIn ? (
+			<Redirect to="/dashboard" />
+		) : (
+			<SignInPage setLogin={setLogin} admin={false} />
+		);
 	};
 
 	const checkSignIn = () => {
@@ -87,6 +102,17 @@ function App() {
 		return loggedIn ? <HomePage /> : <Redirect to="/admin/signin" />;
 	};
 
+	const toMyRequests = () => {
+		return loggedIn ? <RequestsPage /> : <Redirect to="/user/signin" />;
+	};
+
+	const toPrivacyPolicy = () => {
+		return loggedIn ? <PrivacyPolicy /> : <Redirect to="/user/signin" />;
+	};
+	const toTermsOfService = () => {
+		return loggedIn ? <TermsOfService /> : <Redirect to="/user/signin" />;
+	};
+
 	const checkAdminSignIn = () => {
 		return loggedIn ? (
 			<Redirect to="/dashboard" />
@@ -97,40 +123,71 @@ function App() {
 
 	return (
 		<Router>
-			<Switch>
-				{/* ROUTES FOR EMPLOYEES */}
-				<Route
-					exact
-					path="/user/signin"
-					render={() => checkSignIn()}
-				/>
-				<Route
-					exact
-					path="/user/signup"
-					render={() => checkSignUp()}
-				/>
-				<Route
-					exact
-					path="/user/forgotPassword"
-					render={() => checkForgotPassword()}
-				/>
+			{loading ? (
+				<Spinner size={100} loading={loading} />
+			) : (
+				<>
+					{loggedIn && <Header setLogout={setLogout} />}
+					<Switch>
+						{/* ROUTES FOR EMPLOYEES */}
+						<Route
+							exact
+							path="/user/signin"
+							render={() => checkSignIn()}
+						/>
+						<Route
+							exact
+							path="/user/signup"
+							render={() => checkSignUp()}
+						/>
+						<Route
+							exact
+							path="/user/forgotPassword"
+							render={() => checkForgotPassword()}
+						/>
 
-				{/* ROUTES FOR ADMINS */}
-				<Route
-					exact
-					path="/admin/signin"
-					render={() => checkAdminSignIn()}
-				/>
-				<Route
-					exact
-					path="/admin/dashboard"
-					render={() => toAdminHome()}
-				/>
+						<Route
+							exact
+							path="/viewRequests"
+							render={() => toMyRequests()}
+						/>
 
-				{/* DEFAULT ROUTES */}
-				<Route exact path="/dashboard" render={() => toHome()} />
-				<Route exact path="/" render={() => toHome()} />
-			</Switch>
+						{/* ROUTES FOR ADMINS */}
+						<Route
+							exact
+							path="/admin/signin"
+							render={() => checkAdminSignIn()}
+						/>
+						<Route
+							exact
+							path="/admin/dashboard"
+							render={() => toAdminHome()}
+						/>
+
+						{/* DEFAULT ROUTES */}
+						<Route
+							exact
+							path="/dashboard"
+							render={() => toHome()}
+						/>
+						<Route
+							exact
+							path="/privacyPolicy"
+							render={() => toPrivacyPolicy()}
+						/>
+						<Route
+							exact
+							path="/termsOfService"
+							render={() => toTermsOfService()}
+						/>
+						<Route
+							path="/"
+							render={() => isAuthenticated()}
+						/>
+						{/* <Route exact path="/" render={() => toHome()} /> */}
+					</Switch>
+				</>
+			)}
 		</Router>
 	);
 }

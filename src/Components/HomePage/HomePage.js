@@ -1,40 +1,45 @@
-import React, { useState, useContext } from "react";
-import { kBaseUrl } from "../../constants";
-import { UserContext } from "../../Context/UserContext";
-import { getCookie } from "../../utils";
+import React, { useEffect, useState } from "react";
 import Footer from "./../Footer/Footer";
 import Sidebar from "./../Sidebar/Sidebar";
+import HomeContent from "../HomeContent/HomeContent";
+import Spinner from "../../spinner";
+import { kBaseUrl } from "./../../constants";
 
 const HomePage = () => {
-	const accessToken = getCookie("access-token");
-	const [user, setUser] = useState({});
-	const [name, setName] = useState("");
+	const [loading, setLoading] = useState(true);
+	const [products, setProducts] = useState([]);
 
-	const handleHome = (e) => {
-		e.preventDefault();
-		console.log(UserContext);
-		// fetch(kBaseUrl + "/user/viewProfile", {
-		// 	credentials: "include",
-		// 	method: "GET",
-		// }).then(async (res) => {
-		// 	if (res.status === 200) {
-		// 		const resJSON = await res.json();
-		// 		const { data } = resJSON;
-		// 		setUser(data);
-		// 		setName(data.user_name);
-		// 	}
-		// });
-	};
+	useEffect(() => {
+		fetch(kBaseUrl + "/user/getAllStock", {
+			credentials: "include",
+			method: "GET",
+		})
+			.then((res) => {
+				return res.json();
+			})
+			.then((resJSON) => {
+				const { data } = resJSON;
+				setProducts(data);
+			})
+			.then(() => {
+				setLoading(false);
+			})
+			.catch((e) => {
+				console.log("Something went wrong", e);
+			});
+	}, []);
 
 	return (
-		// <div>
-		// 	<button className="btn btn-primary" onClick={handleHome}> Get Data </button>
-		// 	{/* <p> { Object.entries(user).forEach(([key, value]) => console.log(`${key} ${value}`); })} </p> */}
-		// 	{name}
-		// </div>
 		<div>
-			<Sidebar />
-			<Footer />
+			{loading ? (
+				<Spinner size={100} loading={loading} />
+			) : (
+				<div>
+					<Sidebar active="home" />
+					<HomeContent products={products} />
+					<Footer />
+				</div>
+			)}
 		</div>
 	);
 };
