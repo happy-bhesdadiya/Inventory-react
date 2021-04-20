@@ -28,7 +28,7 @@ const SignInPage = (props) => {
 			email.match(
 				/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 			) &&
-			password.length > 8
+			password.length > 7
 		) {
 			fetch(kBaseUrl + "/user/login", {
 				body: JSON.stringify({
