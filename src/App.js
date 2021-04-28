@@ -16,9 +16,7 @@ import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
 import TermsOfService from "./Components/TermsOfService/TermsOfService";
 import Header from "./Components/Header/Header";
 import Spinner from "./spinner";
-import AdminPage from './Components/AdminPage/AdminPage'
 import RequestsPage from "./Components/RequestsPage/RequestsPage";
-import ListAdmin from "./Components/ListAdmin/ListAdmin"
 
 function App() {
 	const [loggedIn, setLoggedIn] = useState(false);
@@ -122,14 +120,6 @@ function App() {
 			<SignInPage setLogin={setLogin} admin={true} />
 		);
 	};
-	const toaddAdmin = () => {
-		console.log("reached here")
-		return loggedIn ? <AdminPage/> : <Redirect to="/admin/signin" />;
-	};
-	const togetUsers=()=>{
-		console.log("Inside Get Users");
-		return loggedIn ?<ListAdmin/>:<Redirect to="/admin/signin"/>
-	}
 
 	return (
 		<Router>
@@ -180,20 +170,6 @@ function App() {
 							path="/dashboard"
 							render={() => toHome()}
 						/>
-
-						<Route
-							exact
-							path="/admin/addAdmin"
-							render={() => toaddAdmin()}
-						/>
-
-
-						<Route
-							exact
-							path="/admin/getUsers"
-							render={() => togetUsers()}
-						/>
-
 						<Route
 							exact
 							path="/privacyPolicy"
