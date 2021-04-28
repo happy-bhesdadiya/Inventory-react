@@ -6,6 +6,7 @@ import { beautifyDate, setLogoutCookie } from "../../utils";
 
 const Header = (props) => {
 	const { userProfile, setUserProfile } = useContext(UserContext);
+	console.log("this is date",userProfile.createdAt)
 	const date = beautifyDate(userProfile.createdAt);
 
 	const handleLogout = () => {

@@ -12,7 +12,7 @@ const SignInPage = (props) => {
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState(false);
 	const [disableLogin, setDisableLogin] = useState(false);
-	const { userProfile, setUserProfile } = useContext(UserContext);
+	const { setUserProfile } = useContext(UserContext);
 	const [loading, setLoading] = useState(false);
 
 	const handleLogin = (e) => {
@@ -28,7 +28,7 @@ const SignInPage = (props) => {
 			email.match(
 				/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 			) &&
-			password.length > 8
+			password.length >= 8
 		) {
 			fetch(kBaseUrl + "/user/login", {
 				body: JSON.stringify({
@@ -53,13 +53,13 @@ const SignInPage = (props) => {
 				})
 				.then((resJSON) => {
 					const { data } = resJSON;
+					console.log("This is response data",data)
 					// const accessToken = "access-token";
 					// const token = data.token;
 					// setCookie(accessToken, token);
 					setUserProfile(data);
 				})
 				.then(() => {
-					console.log("User Profile", userProfile);
 					props.setLogin();
 				})
 				.then(() => {
