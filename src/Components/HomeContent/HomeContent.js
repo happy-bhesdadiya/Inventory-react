@@ -1,35 +1,33 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../Context/UserContext";
-import Spinner from "../../spinner";
-import StockCard from "./StockCard";
+import React, { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../../Context/UserContext';
+import Spinner from '../../spinner';
+import StockCard from './StockCard';
 // import { kBaseUrl } from "./../../constants";
 
 const HomeContent = ({ products }) => {
-	const { userProfile } = useContext(UserContext);
-	const [loading, setLoading] = useState(false);
+  const { userProfile } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
 
-	return (
-		<div className="content-page">
-			{loading ? (
-				<Spinner size={100} loading={loading} />
-			) : (
-				<div className="container-fluid">
-					<div className="row">
-						<div className="col-lg-12">
-							<div className="card card-transparent card-block card-stretch card-height border-none">
-								<div className="card-body p-0 mt-lg-2 mt-0">
-									<h3 className="mb-3">
-										Hey there,{" "}
-										{userProfile.user_name}.
-										Welcome to Bacancy Inventory
-										Portal !
-									</h3>
-									{/*  <p className="mb-0 mr-4">Your dashboard gives you views of key performance or business
+  return (
+    <div className='content-page'>
+      {loading ? (
+        <Spinner size={100} loading={loading} />
+      ) : (
+        <div className='container-fluid'>
+          <div className='row'>
+            <div className='col-lg-12'>
+              <div className='card card-transparent card-block card-stretch card-height border-none'>
+                <div className='card-body p-0 mt-lg-2 mt-0'>
+                  <h3 className='mb-3'>
+                    Hey there, {userProfile.user_name}. Welcome to Bacancy
+                    Inventory Portal !
+                  </h3>
+                  {/*  <p className="mb-0 mr-4">Your dashboard gives you views of key performance or business
                                     process.</p> */}
-								</div>
-							</div>
-						</div>
-						{/*  <div className="col-lg-8">
+                </div>
+              </div>
+            </div>
+            {/*  <div className="col-lg-8">
                         <div className="row">
                             <div className="col-lg-4 col-md-4">
                                 <div className="card card-block card-stretch card-height">
@@ -90,7 +88,7 @@ const HomeContent = ({ products }) => {
                             </div>
                         </div>
                     </div>  */}
-						{/* <div className="col-lg-6">
+            {/* <div className="col-lg-6">
                         <div className="card card-block card-stretch card-height">
                             <div className="card-header d-flex justify-content-between">
                                 <div className="header-title">
@@ -116,7 +114,7 @@ const HomeContent = ({ products }) => {
                             </div>
                         </div>
                     </div> */}
-						{/*  <div className="col-lg-6">
+            {/*  <div className="col-lg-6">
                         <div className="card card-block card-stretch card-height">
                             <div className="card-header d-flex align-items-center justify-content-between">
                                 <div className="header-title">
@@ -142,16 +140,13 @@ const HomeContent = ({ products }) => {
                             </div>
                         </div>
                     </div>  */}
-						<div className="col-lg-12">
-							<div className="card card-block card-stretch card-height">
-								<div className="card-header d-flex align-items-center justify-content-between">
-									<div className="header-title">
-										<h4 className="card-title">
-											{" "}
-											Available Inventories{" "}
-										</h4>
-									</div>
-									{/*  <div className="card-header-toolbar d-flex align-items-center">
+            <div className='col-lg-12'>
+              <div className='card card-block card-stretch card-height'>
+                <div className='card-header d-flex align-items-center justify-content-between'>
+                  <div className='header-title'>
+                    <h4 className='card-title'> Available Inventories </h4>
+                  </div>
+                  {/*  <div className="card-header-toolbar d-flex align-items-center">
                                     <div className="dropdown">
                                         <span className="dropdown-toggle dropdown-bg btn" id="dropdownMenuButton006"
                                             data-toggle="dropdown">
@@ -165,34 +160,20 @@ const HomeContent = ({ products }) => {
                                         </div>
                                     </div>
                                 </div> */}
-								</div>
-								<div className="card-body">
-									<ul className="list-unstyled row top-product mb-0">
-										{products.length > 0 ? (
-											products.map(
-												(product) => (
-													<li
-														className="col-lg-4"
-														key={
-															product.id
-														}
-													>
-														<StockCard
-															prod={
-																product
-															}
-														/>
-													</li>
-												)
-											)
-										) : (
-											<h5 className="ml-3">
-												Inventories are
-												Added Soon !
-											</h5>
-										)}
-									</ul>
-									{/* <li className="col-lg-3">
+                </div>
+                <div className='card-body'>
+                  <ul className='list-unstyled row top-product mb-0'>
+                    {products.length > 0 ? (
+                      products.map((product) => (
+                        <li className='col-lg-4' key={product.id}>
+                          <StockCard prod={product} />
+                        </li>
+                      ))
+                    ) : (
+                      <h5 className='ml-3'>Inventories are Added Soon !</h5>
+                    )}
+                  </ul>
+                  {/* <li className="col-lg-3">
 											<div className="card card-block card-stretch card-height mb-0">
 												<div
 													className="card-body"
@@ -364,10 +345,10 @@ const HomeContent = ({ products }) => {
 											</div>
 										</li>
 									</ul>*/}
-								</div>
-							</div>
-						</div>
-						{/* <div className="col-lg-4">
+                </div>
+              </div>
+            </div>
+            {/* <div className="col-lg-4">
                         <div className="card-transparent card-block card-stretch mb-4">
                             <div className="card-header d-flex align-items-center justify-content-between p-0">
                                 <div className="header-title">
@@ -409,7 +390,7 @@ const HomeContent = ({ products }) => {
                             </div>
                         </div>
                     </div>  */}
-						{/* <div className="col-lg-4">
+            {/* <div className="col-lg-4">
                         <div className="card card-block card-stretch card-height-helf">
                             <div className="card-body">
                                 <div className="d-flex align-items-top justify-content-between">
@@ -461,7 +442,7 @@ const HomeContent = ({ products }) => {
                             </div>
                         </div>
                     </div> */}
-						{/*  <div className="col-lg-8">
+            {/*  <div className="col-lg-8">
                         <div className="card card-block card-stretch card-height">
                             <div className="card-header d-flex justify-content-between">
                                 <div className="header-title">
@@ -524,11 +505,11 @@ const HomeContent = ({ products }) => {
                         </div>
                     </div>
                 </div> */}
-					</div>
-				</div>
-			)}
-		</div>
-	);
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default HomeContent;
