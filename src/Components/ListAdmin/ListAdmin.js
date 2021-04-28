@@ -1,13 +1,16 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+
 import { beautifyDate } from "../../utils";
 import { kBaseUrl } from "./../../constants";
 import Sidebar from "./../Sidebar/Sidebar";
+import Spinner from "../../spinner";
+import { UserContext } from "../../Context/UserContext";
 const ListAdmin = ({ admins }) => {
     const [Admin, setAdmin] = useState([]);
-            
-
-
+	const [loading, setLoading] = useState(true);    
+	const { userProfile } = useContext(UserContext);
+	
         useEffect(() => {
             fetch(kBaseUrl + "/admin/getAdmin", {
                 credentials: "include",
@@ -20,18 +23,19 @@ const ListAdmin = ({ admins }) => {
                     console.log("This is admin data",resJSON);
                     const { data } = resJSON;
                     setAdmin(data);
-                   
+					
                 })
                 .then(() => {
+					setLoading(false);
 					$(document).ready(function () {
-						$("#admins").DataTable();
+						$("#Admin").DataTable();
 					});
                 })
                 .catch((e) => {
                     console.log("Something went wrong", e);
                 });
         }, []);
-
+		
 	var count = 0;
 
 	const handleRenew = (id) => {
@@ -43,7 +47,11 @@ const ListAdmin = ({ admins }) => {
 
 	return (
         <div>
+		
           <Sidebar active="home"/>
+		  {loading ? (
+				<Spinner size={100} loading={loading} />
+			) : (
 		<div className="content-page">
 			<div className="container-fluid">
 				<div className="row">
@@ -62,7 +70,7 @@ const ListAdmin = ({ admins }) => {
 						<div className="table-responsive rounded mb-3">
 							{Admin.length > 0 ? (
 								<table
-									id="admins"
+									id="Admin"
 									className="data-table table mb-0 tbl-server-info"
 									style={{ textAlign: "center" }}
 								>
@@ -141,6 +149,7 @@ const ListAdmin = ({ admins }) => {
 				</div>
 			</div> 
 		</div> 
+		)}
         </div>
 	);
 };
