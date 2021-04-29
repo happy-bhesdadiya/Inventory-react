@@ -17,6 +17,7 @@ import TermsOfService from "./Components/TermsOfService/TermsOfService";
 import Header from "./Components/Header/Header";
 import Spinner from "./spinner";
 import RequestsPage from "./Components/RequestsPage/RequestsPage";
+import AddStockPage from "./Components/AddStockPage/AddStockPage";
 
 function App() {
 	const [loggedIn, setLoggedIn] = useState(false);
@@ -106,6 +107,10 @@ function App() {
 		return loggedIn ? <RequestsPage /> : <Redirect to="/user/signin" />;
 	};
 
+	const toAddStock = () => {
+		return loggedIn ? <AddStockPage /> : <Redirect to="/user/signin" />;
+	};
+
 	const toPrivacyPolicy = () => {
 		return loggedIn ? <PrivacyPolicy /> : <Redirect to="/user/signin" />;
 	};
@@ -150,6 +155,12 @@ function App() {
 							exact
 							path="/viewRequests"
 							render={() => toMyRequests()}
+						/>
+
+						<Route
+							exact
+							path="/AddStock"
+							render={() => toAddStock()}
 						/>
 
 						{/* ROUTES FOR ADMINS */}
